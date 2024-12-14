@@ -67,7 +67,17 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'admin_password_reset_tokens_tables',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
     ],
+
+
+
 
     'password_timeout' => 10800,
 ];

@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,71 +56,32 @@
                             </button>
                         </div>
                     @endif
-                    <form class="form-horizontal form-material" id="loginform" action="{{ route('admin.login') }}" method="POST">
+                    <h2>Reset Password</h2>
+                     @error('email')
+                        <div class="alert alert-danger mt-3">{{ $message }}</div>
+                    @enderror
+                    <form action="{{ route('admin.password.store') }}" method="POST">
                         @csrf
-                        <h3 class="box-title m-b-20 text-center">Admin Login</h3>
-                        <div class="form-group ">
-                            <div class="col-xs-12">
-                                <input class="form-control" type="text" required="" placeholder="Username" name="email"> </div>
-                        </div>
+                        <input type="hidden" name="token" value="{{ $request->route('token') }}">
                         <div class="form-group">
-                            <div class="col-xs-12">
-                                <input class="form-control" type="password" required="" placeholder="Password" name="password"> </div>
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" class="form-control" id="email" name="email" :value="old('email', $request->email)" required autocomplete="username">
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Remember me</label>
-                                    <a href="{{ route('admin.password.request') }}" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group text-center">
-                            <div class="col-xs-12 p-b-20">
-                                <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Log In</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-                                <div class="social">
-                                    <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
-                                    <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group m-b-0">
-                            <div class="col-sm-12 text-center text-info">
-                                Welcome To Admin Dashboard
-                            </div>
-                        </div>
-                    </form>
-                    {{-- <form class="form-horizontal" id="recoverform" action="{{ route('admin.password.email') }}" method="POST">
-                        @csrf
 
-                        @if(@session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endsession
-                        <div class="form-group ">
-                            <div class="col-xs-12">
-                                <h3>Recover Password</h3>
-                                <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
-                            </div>
+                        <div class="form-group">
+                            <label for="password">New Password</label>
+                            <input id="password" type="password" name="password" class="form-control" required autocomplete="new-password">
                         </div>
-                        <div class="form-group ">
-                            <div class="col-xs-12">
-                                <input class="form-control" type="email"  placeholder="Enter your email" name="email" value="{{ old('email') }}">
-                            </div>
-                            <span class="text-danger">@error('email'){{ $message }} @enderror</span>
+
+                        <div class="form-group">
+                            <label for="password_confirmation">Confirm Password</label>
+                            <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required autocomplete="new-password">
                         </div>
-                        <div class="form-group text-center m-t-20">
-                            <div class="col-xs-12">
-                                <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
-                            </div>
-                        </div>
-                    </form> --}}
+
+                        <button type="submit" class="btn btn-primary">Reset Password</button>
+
+
+                    </form>
                 </div>
             </div>
         </div>
